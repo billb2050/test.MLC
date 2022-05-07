@@ -1,0 +1,8 @@
+*.gz
+*.OBJ
+*.LST
+*.ERR
+*.390
+test-370.MLC
+notes.txt
+/Backup

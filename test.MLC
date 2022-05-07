@@ -1,0 +1,42 @@
+***********************************************************************
+*
+* Change a string of Uppercase letters to lowercase
+*
+* By: Bill B
+* On: 04/23/2022
+***********************************************************************
+         TITLE 'Test'
+         PRINT NOGEN        expand macros?
+TEST     SUBENTRY
+*
+*        Setup loop to lowercase a string
+         LA    R5,L'STRING Length of STRING         
+         LA    R6,STRING   Address of STRING
+INIT     BAL   R7,LOWER    Perform Lower
+         AH    R6,=H'1'    Next position in STRING
+         BCT   R5,INIT     Decrement R5 then goto INIT until zero    
+*
+ENDRTN   EQU   *
+         WTO   'BYE!'
+         SUBEXIT
+*         
+LOWER    EQU   *
+         WTO   '%%%%%%% Lower %%%%%%%'
+         CLI   0(R6),X'40' Ignore spaces
+         BER   R7
+         NI    0(R6),B'10111111'   AND
+         BR    R7             
+*****************************************
+*        Data area                      *
+*****************************************
+         DS    0D      Align on Doubleword.
+DBLWRD   DS    D
+START    DS    0H
+CHAR     DC    C'#'
+*              STRING contains all the letters of the alphabet
+STRING   DC    C'THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG'
+         DC    C'###'
+END      DS    0H 
+*        PRINT GEN
+         YREGS ,
+         END   TEST
